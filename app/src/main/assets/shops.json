@@ -1,0 +1,178 @@
+[
+  {
+    "id": 1,
+    "name": "Shop #1",
+    "storehouses": [
+      {
+        "id": 1,
+        "name": "Storehouse #1",
+        "shop_id": 1,
+        "products": [
+          {
+            "id": 1,
+            "name": "Product #1",
+            "storehouse_id": 1
+          },
+          {
+            "id": 2,
+            "name": "Product #2",
+            "storehouse_id": 1
+          },
+          {
+            "id": 3,
+            "name": "Product #3",
+            "storehouse_id": 1
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Storehouse #2",
+        "shop_id": 1,
+        "products": [
+          {
+            "id": 4,
+            "name": "Product #4",
+            "storehouse_id": 2
+          },
+          {
+            "id": 5,
+            "name": "Product #5",
+            "storehouse_id": 2
+          },
+          {
+            "id": 6,
+            "name": "Product #6",
+            "storehouse_id": 2
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Storehouse #3",
+        "shop_id": 1,
+        "products": []
+      },
+      {
+        "id": 4,
+        "name": "Storehouse #4",
+        "shop_id": 1,
+        "products": []
+      },
+      {
+        "id": 5,
+        "name": "Storehouse #5",
+        "shop_id": 1,
+        "products": []
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Shop #2",
+    "storehouses": [
+      {
+        "id": 6,
+        "name": "Storehouse #6",
+        "shop_id": 2,
+        "products": [
+          {
+            "id": 7,
+            "name": "Product #7",
+            "storehouse_id": 6
+          },
+          {
+            "id": 8,
+            "name": "Product #8",
+            "storehouse_id": 6
+          },
+          {
+            "id": 9,
+            "name": "Product #9",
+            "storehouse_id": 6
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Storehouse #7",
+        "shop_id": 2,
+        "products": [
+          {
+            "id": 10,
+            "name": "Product #10",
+            "storehouse_id": 7
+          },
+          {
+            "id": 11,
+            "name": "Product #11",
+            "storehouse_id": 7
+          },
+          {
+            "id": 12,
+            "name": "Product #12",
+            "storehouse_id": 7
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Storehouse #8",
+        "shop_id": 2,
+        "products": []
+      },
+      {
+        "id": 9,
+        "name": "Storehouse #9",
+        "shop_id": 2,
+        "products": []
+      },
+      {
+        "id": 10,
+        "name": "Storehouse #10",
+        "shop_id": 2,
+        "products": []
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Shop #3",
+    "storehouses": []
+  },
+  {
+    "id": 4,
+    "name": "Shop #4",
+    "storehouses": []
+  },
+  {
+    "id": 5,
+    "name": "Shop #5",
+    "storehouses": []
+  },
+  {
+    "id": 6,
+    "name": "Shop #6",
+    "storehouses": []
+  },
+  {
+    "id": 7,
+    "name": "Shop #7",
+    "storehouses": []
+  },
+  {
+    "id": 8,
+    "name": "Shop #8",
+    "storehouses": []
+  },
+  {
+    "id": 9,
+    "name": "Shop #9",
+    "storehouses": []
+  },
+  {
+    "id": 10,
+    "name": "Shop #10",
+    "storehouses": []
+  }
+]

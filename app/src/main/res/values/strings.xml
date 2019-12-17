@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AinsoftTestApp</string>
+    <!--<string name="hello_blank_fragment">Hello blank fragment</string>-->
+    <string name="btn_save">Save</string>
+    <string name="et_hint_name">enter name</string>
+    <string name="tv_create_new_shop_title">Create new Shop</string>
+    <string name="tv_create_new_storehouse_title">Create new Storehouse</string>
+    <string name="title">Edit %1$s</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_create_new_product_title">Create new product</string>
+</resources>

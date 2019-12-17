@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/shopFragment">
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="com.vladimir_khm.ainsofttestapp.ui.shop.ShopFragment"
+        android:label="shop_fragment"
+        tools:layout="@layout/shop_fragment">
+        <action
+            android:id="@+id/action_shopFragment_to_storehouseFragment"
+            app:destination="@id/storehouseFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_shopFragment_to_createFragment"
+            app:destination="@id/createFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/storehouseFragment"
+        android:name="com.vladimir_khm.ainsofttestapp.ui.storehouse.StorehouseFragment"
+        android:label="storehouse_fragment"
+        tools:layout="@layout/storehouse_fragment">
+        <argument
+            android:name="shopName"
+            android:defaultValue="defaultValue"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_storehouseFragment_to_productFragment"
+            app:destination="@id/productFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="shopId"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_storehouseFragment_to_storehouseCreateFragment"
+            app:destination="@id/storehouseCreateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.vladimir_khm.ainsofttestapp.ui.product.ProductFragment"
+        android:label="product_fragment"
+        tools:layout="@layout/product_fragment">
+        <argument
+            android:name="storehouseName"
+            android:defaultValue="defaultValue"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_productFragment_to_productCreateFragment"
+            app:destination="@id/productCreateFragment" />
+        <argument
+            android:name="storehouseId"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/createFragment"
+        android:name="com.vladimir_khm.ainsofttestapp.ui.shop.ShopCreateFragment"
+        android:label="fragment_create"
+        tools:layout="@layout/fragment_shop_create">
+        <argument
+            android:name="title"
+            android:defaultValue=" "
+            app:argType="string" />
+        <argument
+            android:name="isNew"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <argument
+            android:name="id"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/storehouseCreateFragment"
+        android:name="com.vladimir_khm.ainsofttestapp.ui.storehouse.StorehouseCreateFragment"
+        android:label="fragment_storehouse_create"
+        tools:layout="@layout/fragment_storehouse_create">
+        <argument
+            android:name="title"
+            android:defaultValue=" "
+            app:argType="string" />
+        <argument
+            android:name="isNew"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <argument
+            android:name="id"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/productCreateFragment"
+        android:name="com.vladimir_khm.ainsofttestapp.ui.product.ProductCreateFragment"
+        android:label="fragment_product_create"
+        tools:layout="@layout/fragment_product_create" >
+        <argument
+            android:name="title"
+            android:defaultValue=" "
+            app:argType="string" />
+        <argument
+            android:name="isNew"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <argument
+            android:name="id"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+</navigation>

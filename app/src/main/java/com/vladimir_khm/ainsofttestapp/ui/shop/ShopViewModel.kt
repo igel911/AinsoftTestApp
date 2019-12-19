@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 class ShopViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: ShopRepository
-    private val allShops: LiveData<List<Shop>>
+    val allShops: LiveData<List<Shop>>
 
     init {
         val shopDao = AppDatabase.getInstance(application).appDao()
@@ -20,21 +20,11 @@ class ShopViewModel(application: Application) : AndroidViewModel(application) {
         allShops = repository.allShops
     }
 
-    fun addShop(name: String) = viewModelScope.launch {
-        val shop = Shop(name = name)
-        repository.insert(shop)
-    }
+    fun addShop(name: String) = viewModelScope.launch { repository.insert(Shop(name = name)) }
 
-    fun deleteShop(shop: Shop) = viewModelScope.launch {
-        repository.delete(shop)
-    }
+    fun deleteShop(shop: Shop) = viewModelScope.launch { repository.delete(shop) }
 
     fun updateShop(name: String, id: Int) = viewModelScope.launch {
-        val shop = Shop(id, name)
-        repository.update(shop)
-    }
-
-    fun getShops(): LiveData<List<Shop>> {
-        return allShops
+        repository.update(Shop(id, name))
     }
 }

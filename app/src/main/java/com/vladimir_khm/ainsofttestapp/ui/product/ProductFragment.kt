@@ -28,7 +28,7 @@ class ProductFragment : Fragment(R.layout.product_fragment), Interaction {
         } ?: throw Exception(INVALID_ACTIVITY)
         viewModel.initVm(args.storehouseId)
 
-        viewModel.getStorehouseWithProducts().observe(viewLifecycleOwner, Observer {
+        viewModel.storehouseWithProducts.observe(viewLifecycleOwner, Observer {
             storehouseAdapter.submitList(it.products)
         })
     }

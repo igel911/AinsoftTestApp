@@ -28,7 +28,7 @@ class StorehouseFragment : Fragment(R.layout.storehouse_fragment), Interaction {
         } ?: throw Exception(INVALID_ACTIVITY)
         viewModel.initVm(args.shopId)
 
-        viewModel.getShopWithStorehouses().observe(viewLifecycleOwner, Observer {
+        viewModel.shopWithStorehouses.observe(viewLifecycleOwner, Observer {
             storehouseAdapter.submitList(it.storehouses)
         })
     }

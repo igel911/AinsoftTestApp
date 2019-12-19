@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 class StorehouseViewModel(application: Application) : AndroidViewModel(application) {
 
     private var repository: StorehouseRepository
-    private lateinit var shopWithStorehouses: LiveData<ShopWithStorehouses>
     private var shopId = 0
+    lateinit var shopWithStorehouses: LiveData<ShopWithStorehouses>
 
 
     init {
@@ -28,8 +28,7 @@ class StorehouseViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun addStorehouse(name: String) = viewModelScope.launch {
-        val storehouse = Storehouse(name = name, shop_id = shopId)
-        repository.insert(storehouse)
+        repository.insert(Storehouse(name = name, shop_id = shopId))
     }
 
     fun deleteStorehouse(storehouse: Storehouse) = viewModelScope.launch {
@@ -37,9 +36,6 @@ class StorehouseViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun updateStorehouse(name: String, id: Int) = viewModelScope.launch {
-        val storehouse = Storehouse(id, name, shopId)
-        repository.update(storehouse)
+        repository.update(Storehouse(id, name, shopId))
     }
-
-    fun getShopWithStorehouses(): LiveData<ShopWithStorehouses> = shopWithStorehouses
 }

@@ -25,7 +25,7 @@ class ShopFragment : Fragment(R.layout.shop_fragment), Interaction {
             ViewModelProviders.of(this)[ShopViewModel::class.java]
         } ?: throw Exception(INVALID_ACTIVITY)
 
-        viewModel.getShops().observe(viewLifecycleOwner, Observer {
+        viewModel.allShops.observe(viewLifecycleOwner, Observer {
             shopAdapter.submitList(it)
         })
     }

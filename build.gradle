@@ -16,7 +16,7 @@ buildscript {
         recyclerViewVersion = '1.1.0'
         kotlinVersion = '1.3.61'
         lifecycleVersion = '2.1.0'
-        roomVersion = '2.2.2'
+        roomVersion = '2.2.3'
         coroutinesVersion = '1.3.2'
         junitVersion = '4.12'
         testExtJunit = '1.1.1'

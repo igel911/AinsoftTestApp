@@ -8,16 +8,9 @@ class ShopRepository(private val appDao: AppDao) {
 
     val allShops: LiveData<List<Shop>> = appDao.getAllShops()
 
-    suspend fun insert(shop: Shop) {
-        appDao.insertShop(shop)
-    }
+    suspend fun insert(shop: Shop) = appDao.insertShop(shop)
 
-    suspend fun delete(shop: Shop) {
-        appDao.deleteShop(shop)
-    }
+    suspend fun delete(shop: Shop) = appDao.deleteShop(shop)
 
-    suspend fun update(shop: Shop) {
-        appDao.updateShop(shop)
-    }
-
+    suspend fun update(shop: Shop) = appDao.updateShop(shop)
 }

@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import com.vladimir_khm.ainsofttestapp.R
 import com.vladimir_khm.ainsofttestapp.util.INVALID_ACTIVITY
+import com.vladimir_khm.ainsofttestapp.util.getViewModel
 import kotlinx.android.synthetic.main.fragment_storehouse_create.*
 
 class StorehouseCreateFragment : Fragment(R.layout.fragment_storehouse_create) {
@@ -19,9 +19,10 @@ class StorehouseCreateFragment : Fragment(R.layout.fragment_storehouse_create) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = activity?.run {
-            ViewModelProviders.of(this)[StorehouseViewModel::class.java]
-        } ?: throw Exception(INVALID_ACTIVITY)
+
+        viewModel = activity?.getViewModel(args.shopId){
+            StorehouseViewModel(activity?.application!!, args.shopId)} ?: throw Exception(INVALID_ACTIVITY)
+        println("tag StorehouseCreateFragment ${viewModel.hashCode()} shopId = ${args.shopId}")
     }
 
     override fun onResume() {

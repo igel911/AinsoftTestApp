@@ -85,6 +85,9 @@
         android:label="fragment_storehouse_create"
         tools:layout="@layout/fragment_storehouse_create">
         <argument
+            android:name="shopId"
+            app:argType="integer" />
+        <argument
             android:name="title"
             android:defaultValue=" "
             app:argType="string" />
@@ -101,7 +104,10 @@
         android:id="@+id/productCreateFragment"
         android:name="com.vladimir_khm.ainsofttestapp.ui.product.ProductCreateFragment"
         android:label="fragment_product_create"
-        tools:layout="@layout/fragment_product_create" >
+        tools:layout="@layout/fragment_product_create">
+        <argument
+            android:name="storehouseId"
+            app:argType="integer" />
         <argument
             android:name="title"
             android:defaultValue=" "

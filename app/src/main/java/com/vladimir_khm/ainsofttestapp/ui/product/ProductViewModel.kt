@@ -10,21 +10,17 @@ import com.vladimir_khm.ainsofttestapp.model.StorehouseWithProducts
 import com.vladimir_khm.ainsofttestapp.repository.ProductRepository
 import kotlinx.coroutines.launch
 
-class ProductViewModel(application: Application) : AndroidViewModel(application) {
+class ProductViewModel(application: Application, private val storehouseId: Int) : AndroidViewModel(application) {
 
-    private var repository: ProductRepository
-    private var storehouseId = 0
-    lateinit var storehouseWithProducts: LiveData<StorehouseWithProducts>
+    private val repository: ProductRepository
+    val storehouseWithProducts: LiveData<StorehouseWithProducts>
 
 
     init {
         val appDao = AppDatabase.getInstance(application).appDao()
         repository = ProductRepository(appDao)
-    }
-
-    fun initVm(id: Int) {
-        storehouseId = id
-        storehouseWithProducts = repository.getStorehouseWithProducts(id)
+        storehouseWithProducts = repository.getStorehouseWithProducts(storehouseId)
+        println("tag ProductViewModel ${this@ProductViewModel.hashCode()} storehouseId = $storehouseId")
     }
 
     fun addProduct(name: String) = viewModelScope.launch {

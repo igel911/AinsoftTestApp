@@ -3,7 +3,6 @@ package com.vladimir_khm.ainsofttestapp.ui.storehouse
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
@@ -11,6 +10,7 @@ import com.vladimir_khm.ainsofttestapp.R
 import com.vladimir_khm.ainsofttestapp.model.Storehouse
 import com.vladimir_khm.ainsofttestapp.util.INVALID_ACTIVITY
 import com.vladimir_khm.ainsofttestapp.util.ItemDecorator
+import com.vladimir_khm.ainsofttestapp.util.getViewModel
 import kotlinx.android.synthetic.main.storehouse_fragment.*
 
 class StorehouseFragment : Fragment(R.layout.storehouse_fragment), Interaction {
@@ -23,10 +23,10 @@ class StorehouseFragment : Fragment(R.layout.storehouse_fragment), Interaction {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initRecyclerView()
-        viewModel = activity?.run {
-            ViewModelProviders.of(this)[StorehouseViewModel::class.java]
-        } ?: throw Exception(INVALID_ACTIVITY)
-        viewModel.initVm(args.shopId)
+
+        viewModel = activity?.getViewModel(args.shopId) {
+            StorehouseViewModel(activity?.application!!, args.shopId)} ?: throw Exception(INVALID_ACTIVITY)
+        println("tag StorehouseFragment ${viewModel.hashCode()} shopId = ${args.shopId}")
 
         viewModel.shopWithStorehouses.observe(viewLifecycleOwner, Observer {
             storehouseAdapter.submitList(it.storehouses)
@@ -37,7 +37,7 @@ class StorehouseFragment : Fragment(R.layout.storehouse_fragment), Interaction {
         super.onResume()
         fab_storehouse.setOnClickListener {
             val direction = StorehouseFragmentDirections
-                .actionStorehouseFragmentToStorehouseCreateFragment()
+                .actionStorehouseFragmentToStorehouseCreateFragment(args.shopId)
             doNavigate(direction)
         }
         tv_title_storehouse.text = args.shopName
@@ -63,7 +63,7 @@ class StorehouseFragment : Fragment(R.layout.storehouse_fragment), Interaction {
 
     override fun onEditClick(item: Storehouse) {
         val direction = StorehouseFragmentDirections
-            .actionStorehouseFragmentToStorehouseCreateFragment(item.name, false, item.id)
+            .actionStorehouseFragmentToStorehouseCreateFragment(args.shopId, item.name, false, item.id)
         doNavigate(direction)
     }
 

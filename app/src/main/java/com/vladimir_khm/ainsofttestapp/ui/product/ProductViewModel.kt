@@ -10,7 +10,8 @@ import com.vladimir_khm.ainsofttestapp.model.StorehouseWithProducts
 import com.vladimir_khm.ainsofttestapp.repository.ProductRepository
 import kotlinx.coroutines.launch
 
-class ProductViewModel(application: Application, private val storehouseId: Int) : AndroidViewModel(application) {
+class ProductViewModel(application: Application, private val storehouseId: Int) :
+    AndroidViewModel(application) {
 
     private val repository: ProductRepository
     val storehouseWithProducts: LiveData<StorehouseWithProducts>

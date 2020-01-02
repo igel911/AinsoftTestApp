@@ -21,7 +21,6 @@ class ShopCreateFragment : Fragment(R.layout.fragment_shop_create) {
         super.onCreate(savedInstanceState)
 
         viewModel = activity?.getViewModel() ?: throw Exception(INVALID_ACTIVITY)
-        println("tag ShopCreateFragment ${viewModel.hashCode()}")
     }
 
     override fun onResume() {

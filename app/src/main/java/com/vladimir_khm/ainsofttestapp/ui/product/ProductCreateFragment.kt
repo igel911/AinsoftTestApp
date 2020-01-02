@@ -20,9 +20,9 @@ class ProductCreateFragment : Fragment(R.layout.fragment_product_create) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = activity?.getViewModel(args.storehouseId){
-            ProductViewModel(activity?.application!!, args.storehouseId)} ?: throw Exception(INVALID_ACTIVITY)
-        println("tag ProductCreateFragment ${viewModel.hashCode()} storehouseId = ${args.storehouseId}")
+        viewModel = activity?.getViewModel(args.storehouseId) {
+            ProductViewModel(activity?.application!!, args.storehouseId)
+        } ?: throw Exception(INVALID_ACTIVITY)
     }
 
     override fun onResume() {

@@ -24,8 +24,8 @@ class ProductFragment : Fragment(R.layout.product_fragment), Interaction {
         super.onActivityCreated(savedInstanceState)
         initRecyclerView()
         viewModel = activity?.getViewModel(args.storehouseId) {
-            ProductViewModel(activity?.application!!, args.storehouseId)} ?: throw Exception(INVALID_ACTIVITY)
-        println("tag ProductFragment ${viewModel.hashCode()} storehouseId = ${args.storehouseId}")
+            ProductViewModel(activity?.application!!, args.storehouseId)
+        } ?: throw Exception(INVALID_ACTIVITY)
 
         viewModel.storehouseWithProducts.observe(viewLifecycleOwner, Observer {
             storehouseAdapter.submitList(it.products)

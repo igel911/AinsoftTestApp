@@ -20,7 +20,6 @@ class StorehouseViewModel(application: Application, private val shopId: Int) : A
         val appDao = AppDatabase.getInstance(application).appDao()
         repository = StorehouseRepository(appDao)
         shopWithStorehouses = repository.getShopWithStorehouses(shopId)
-        println("tag StorehouseViewModel ${this@StorehouseViewModel.hashCode()} shopId = $shopId")
     }
 
     fun addStorehouse(name: String) = viewModelScope.launch {

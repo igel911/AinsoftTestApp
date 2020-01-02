@@ -25,8 +25,8 @@ class StorehouseFragment : Fragment(R.layout.storehouse_fragment), Interaction {
         initRecyclerView()
 
         viewModel = activity?.getViewModel(args.shopId) {
-            StorehouseViewModel(activity?.application!!, args.shopId)} ?: throw Exception(INVALID_ACTIVITY)
-        println("tag StorehouseFragment ${viewModel.hashCode()} shopId = ${args.shopId}")
+            StorehouseViewModel(activity?.application!!, args.shopId)
+        } ?: throw Exception(INVALID_ACTIVITY)
 
         viewModel.shopWithStorehouses.observe(viewLifecycleOwner, Observer {
             storehouseAdapter.submitList(it.storehouses)
@@ -63,7 +63,12 @@ class StorehouseFragment : Fragment(R.layout.storehouse_fragment), Interaction {
 
     override fun onEditClick(item: Storehouse) {
         val direction = StorehouseFragmentDirections
-            .actionStorehouseFragmentToStorehouseCreateFragment(args.shopId, item.name, false, item.id)
+            .actionStorehouseFragmentToStorehouseCreateFragment(
+                args.shopId,
+                item.name,
+                false,
+                item.id
+            )
         doNavigate(direction)
     }
 

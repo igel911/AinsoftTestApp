@@ -23,7 +23,6 @@ class ShopFragment : Fragment(R.layout.shop_fragment), Interaction {
         initRecyclerView()
 
         viewModel = activity?.getViewModel() ?: throw Exception(INVALID_ACTIVITY)
-        println("tag ShopFragment ${viewModel.hashCode()}")
 
         viewModel.allShops.observe(viewLifecycleOwner, Observer {
             shopAdapter.submitList(it)

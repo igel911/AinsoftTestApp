@@ -2,23 +2,20 @@ package com.vladimir_khm.ainsofttestapp.ui.shop
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.vladimir_khm.ainsofttestapp.database.AppDatabase
 import com.vladimir_khm.ainsofttestapp.model.Shop
 import com.vladimir_khm.ainsofttestapp.repository.ShopRepository
 import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
-class ShopViewModel(application: Application) : AndroidViewModel(application) {
+class ShopViewModel(application: Application) : AndroidViewModel(application), KodeinAware {
 
-    private val repository: ShopRepository
-    val allShops: LiveData<List<Shop>>
+    override val kodein by kodein(application)
+    private val repository: ShopRepository by instance()
+    val allShops = repository.allShops
 
-    init {
-        val shopDao = AppDatabase.getInstance(application).appDao()
-        repository = ShopRepository(shopDao)
-        allShops = repository.allShops
-    }
 
     fun addShop(name: String) = viewModelScope.launch { repository.insert(Shop(name = name)) }
 

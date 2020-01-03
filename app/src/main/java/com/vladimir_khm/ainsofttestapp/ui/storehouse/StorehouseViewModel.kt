@@ -2,25 +2,23 @@ package com.vladimir_khm.ainsofttestapp.ui.storehouse
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.vladimir_khm.ainsofttestapp.database.AppDatabase
-import com.vladimir_khm.ainsofttestapp.model.ShopWithStorehouses
 import com.vladimir_khm.ainsofttestapp.model.Storehouse
 import com.vladimir_khm.ainsofttestapp.repository.StorehouseRepository
 import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
-class StorehouseViewModel(application: Application, private val shopId: Int) : AndroidViewModel(application) {
+class StorehouseViewModel(
+    application: Application,
+    private val shopId: Int
+) : AndroidViewModel(application), KodeinAware {
 
-    private val repository: StorehouseRepository
-    val shopWithStorehouses: LiveData<ShopWithStorehouses>
+    override val kodein by kodein(application)
+    private val repository: StorehouseRepository by instance()
+    val shopWithStorehouses = repository.getShopWithStorehouses(shopId)
 
-
-    init {
-        val appDao = AppDatabase.getInstance(application).appDao()
-        repository = StorehouseRepository(appDao)
-        shopWithStorehouses = repository.getShopWithStorehouses(shopId)
-    }
 
     fun addStorehouse(name: String) = viewModelScope.launch {
         repository.insert(Storehouse(name = name, shop_id = shopId))

@@ -24,18 +24,24 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import com.vladimir_khm.ainsofttestapp.model.Shop
-import com.vladimir_khm.ainsofttestapp.util.SHOP_DATA_FILENAME
 import kotlinx.coroutines.coroutineScope
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
 class SeedDatabaseWorker(
     context: Context,
     workerParams: WorkerParameters
-) : CoroutineWorker(context, workerParams) {
+) : CoroutineWorker(context, workerParams), KodeinAware {
+
+    override val kodein by kodein(context.applicationContext)
+    private val fileName: String by instance("SHOP_DATA_FILENAME")
+
     override suspend fun doWork(): Result = coroutineScope {
         try {
-            applicationContext.assets.open(SHOP_DATA_FILENAME).use { inputStream ->
+            applicationContext.assets.open(fileName).use { inputStream ->
                 JsonReader(inputStream.reader()).use { jsonReader ->
-                    val database = AppDatabase.getInstance(applicationContext)
+                    val database: AppDatabase by instance()
 
                     val shopType = object : TypeToken<List<Shop>>() {}.type
                     val shopList: List<Shop> = Gson().fromJson(jsonReader, shopType)

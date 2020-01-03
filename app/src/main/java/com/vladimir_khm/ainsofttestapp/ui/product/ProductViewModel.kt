@@ -2,27 +2,23 @@ package com.vladimir_khm.ainsofttestapp.ui.product
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.vladimir_khm.ainsofttestapp.database.AppDatabase
 import com.vladimir_khm.ainsofttestapp.model.Product
-import com.vladimir_khm.ainsofttestapp.model.StorehouseWithProducts
 import com.vladimir_khm.ainsofttestapp.repository.ProductRepository
 import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
-class ProductViewModel(application: Application, private val storehouseId: Int) :
-    AndroidViewModel(application) {
+class ProductViewModel(
+    application: Application,
+    private val storehouseId: Int
+) : AndroidViewModel(application), KodeinAware {
 
-    private val repository: ProductRepository
-    val storehouseWithProducts: LiveData<StorehouseWithProducts>
+    override val kodein by kodein(application)
+    private val repository: ProductRepository by instance()
+    val storehouseWithProducts = repository.getStorehouseWithProducts(storehouseId)
 
-
-    init {
-        val appDao = AppDatabase.getInstance(application).appDao()
-        repository = ProductRepository(appDao)
-        storehouseWithProducts = repository.getStorehouseWithProducts(storehouseId)
-        println("tag ProductViewModel ${this@ProductViewModel.hashCode()} storehouseId = $storehouseId")
-    }
 
     fun addProduct(name: String) = viewModelScope.launch {
         repository.insert(Product(name = name, storehouse_id = storehouseId))

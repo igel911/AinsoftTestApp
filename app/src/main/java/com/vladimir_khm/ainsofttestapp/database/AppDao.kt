@@ -1,14 +1,14 @@
 package com.vladimir_khm.ainsofttestapp.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.vladimir_khm.ainsofttestapp.model.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 abstract class AppDao {
 
     @Query("SELECT * from shop_table")
-    abstract fun getAllShops(): LiveData<List<Shop>>
+    abstract fun getAllShops(): Flow<List<Shop>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertShop(shop: Shop)
@@ -33,7 +33,7 @@ abstract class AppDao {
 
     @Transaction
     @Query("SELECT * from shop_table WHERE id = :shopId")
-    abstract fun getShopWithStorehouses(shopId: Int): LiveData<ShopWithStorehouses>
+    abstract fun getShopWithStorehouses(shopId: Int): Flow<ShopWithStorehouses>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertStorehouse(storehouse: Storehouse)
@@ -58,7 +58,7 @@ abstract class AppDao {
 
     @Transaction
     @Query("SELECT * from storehouse_table WHERE id = :shopId")
-    abstract fun getStorehouseWithProducts(shopId: Int): LiveData<StorehouseWithProducts>
+    abstract fun getStorehouseWithProducts(shopId: Int): Flow<StorehouseWithProducts>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertProduct(product: Product)

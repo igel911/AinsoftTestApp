@@ -2,6 +2,7 @@ package com.vladimir_khm.ainsofttestapp.ui.product
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.vladimir_khm.ainsofttestapp.model.Product
 import com.vladimir_khm.ainsofttestapp.repository.ProductRepository
@@ -17,7 +18,7 @@ class ProductViewModel(
 
     override val kodein by kodein(application)
     private val repository: ProductRepository by instance()
-    val storehouseWithProducts = repository.getStorehouseWithProducts(storehouseId)
+    val storehouseWithProducts = repository.getStorehouseWithProducts(storehouseId).asLiveData()
 
 
     fun addProduct(name: String) = viewModelScope.launch {

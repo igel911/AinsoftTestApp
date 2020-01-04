@@ -2,6 +2,7 @@ package com.vladimir_khm.ainsofttestapp.ui.storehouse
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.vladimir_khm.ainsofttestapp.model.Storehouse
 import com.vladimir_khm.ainsofttestapp.repository.StorehouseRepository
@@ -17,7 +18,7 @@ class StorehouseViewModel(
 
     override val kodein by kodein(application)
     private val repository: StorehouseRepository by instance()
-    val shopWithStorehouses = repository.getShopWithStorehouses(shopId)
+    val shopWithStorehouses = repository.getShopWithStorehouses(shopId).asLiveData()
 
 
     fun addStorehouse(name: String) = viewModelScope.launch {

@@ -12,7 +12,9 @@ import androidx.room.*
     )],
     indices = [Index("storehouse_id")]
 )
-data class Product(@PrimaryKey(autoGenerate = true) val id: Int = 0,
-                   val name: String,
-                   @ColumnInfo(name = "storehouse_id") val storehouse_id: Int
+data class Product(
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @ColumnInfo(name = "name")val name: String,
+    @ColumnInfo(name = "storehouse_id") val storehouse_id: Int
 )

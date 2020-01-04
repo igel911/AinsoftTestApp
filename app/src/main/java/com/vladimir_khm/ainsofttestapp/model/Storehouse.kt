@@ -14,8 +14,9 @@ import androidx.room.ForeignKey.CASCADE
     indices = [Index("shop_id")]
 )
 data class Storehouse(
+    @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val name: String,
+    @ColumnInfo(name = "name")val name: String,
     @ColumnInfo(name = "shop_id") val shop_id: Int
 ) {
     @Ignore val products: List<Product> = emptyList()

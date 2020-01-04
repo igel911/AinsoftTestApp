@@ -8,7 +8,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.vladimir_khm.ainsofttestapp.R
 import com.vladimir_khm.ainsofttestapp.model.Product
-import com.vladimir_khm.ainsofttestapp.util.INVALID_ACTIVITY
 import com.vladimir_khm.ainsofttestapp.util.ItemDecorator
 import com.vladimir_khm.ainsofttestapp.util.getViewModel
 import kotlinx.android.synthetic.main.product_fragment.*
@@ -25,7 +24,7 @@ class ProductFragment : Fragment(R.layout.product_fragment), Interaction {
         initRecyclerView()
         viewModel = activity?.getViewModel(args.storehouseId) {
             ProductViewModel(activity?.application!!, args.storehouseId)
-        } ?: throw Exception(INVALID_ACTIVITY)
+        } ?: return
 
         viewModel.storehouseWithProducts.observe(viewLifecycleOwner, Observer {
             storehouseAdapter.submitList(it.products)

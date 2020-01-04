@@ -7,7 +7,6 @@ import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.vladimir_khm.ainsofttestapp.R
-import com.vladimir_khm.ainsofttestapp.util.INVALID_ACTIVITY
 import com.vladimir_khm.ainsofttestapp.util.getViewModel
 import kotlinx.android.synthetic.main.fragment_storehouse_create.*
 
@@ -22,7 +21,7 @@ class StorehouseCreateFragment : Fragment(R.layout.fragment_storehouse_create) {
 
         viewModel = activity?.getViewModel(args.shopId) {
             StorehouseViewModel(activity?.application!!, args.shopId)
-        } ?: throw Exception(INVALID_ACTIVITY)
+        } ?: return
     }
 
     override fun onResume() {

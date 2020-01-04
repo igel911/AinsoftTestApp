@@ -7,7 +7,6 @@ import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.vladimir_khm.ainsofttestapp.R
-import com.vladimir_khm.ainsofttestapp.util.INVALID_ACTIVITY
 import com.vladimir_khm.ainsofttestapp.util.getViewModel
 import kotlinx.android.synthetic.main.fragment_product_create.*
 
@@ -22,7 +21,7 @@ class ProductCreateFragment : Fragment(R.layout.fragment_product_create) {
 
         viewModel = activity?.getViewModel(args.storehouseId) {
             ProductViewModel(activity?.application!!, args.storehouseId)
-        } ?: throw Exception(INVALID_ACTIVITY)
+        } ?: return
     }
 
     override fun onResume() {

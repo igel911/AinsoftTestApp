@@ -8,7 +8,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.vladimir_khm.ainsofttestapp.R
 import com.vladimir_khm.ainsofttestapp.model.Storehouse
-import com.vladimir_khm.ainsofttestapp.util.INVALID_ACTIVITY
 import com.vladimir_khm.ainsofttestapp.util.ItemDecorator
 import com.vladimir_khm.ainsofttestapp.util.getViewModel
 import kotlinx.android.synthetic.main.storehouse_fragment.*
@@ -26,7 +25,7 @@ class StorehouseFragment : Fragment(R.layout.storehouse_fragment), Interaction {
 
         viewModel = activity?.getViewModel(args.shopId) {
             StorehouseViewModel(activity?.application!!, args.shopId)
-        } ?: throw Exception(INVALID_ACTIVITY)
+        } ?: return
 
         viewModel.shopWithStorehouses.observe(viewLifecycleOwner, Observer {
             storehouseAdapter.submitList(it.storehouses)

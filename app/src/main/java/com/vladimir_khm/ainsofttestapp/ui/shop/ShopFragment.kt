@@ -7,7 +7,6 @@ import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.vladimir_khm.ainsofttestapp.R
 import com.vladimir_khm.ainsofttestapp.model.Shop
-import com.vladimir_khm.ainsofttestapp.util.INVALID_ACTIVITY
 import com.vladimir_khm.ainsofttestapp.util.ItemDecorator
 import com.vladimir_khm.ainsofttestapp.util.getViewModel
 import kotlinx.android.synthetic.main.shop_fragment.*
@@ -22,8 +21,7 @@ class ShopFragment : Fragment(R.layout.shop_fragment), Interaction {
         super.onActivityCreated(savedInstanceState)
         initRecyclerView()
 
-        viewModel = activity?.getViewModel() ?: throw Exception(INVALID_ACTIVITY)
-
+        viewModel = activity?.getViewModel() ?: return
         viewModel.allShops.observe(viewLifecycleOwner, Observer {
             shopAdapter.submitList(it)
         })

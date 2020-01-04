@@ -7,7 +7,6 @@ import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.vladimir_khm.ainsofttestapp.R
-import com.vladimir_khm.ainsofttestapp.util.INVALID_ACTIVITY
 import com.vladimir_khm.ainsofttestapp.util.getViewModel
 import kotlinx.android.synthetic.main.fragment_shop_create.*
 
@@ -20,7 +19,7 @@ class ShopCreateFragment : Fragment(R.layout.fragment_shop_create) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = activity?.getViewModel() ?: throw Exception(INVALID_ACTIVITY)
+        viewModel = activity?.getViewModel() ?: return
     }
 
     override fun onResume() {

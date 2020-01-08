@@ -10,6 +10,9 @@ abstract class AppDao {
     @Query("SELECT * from shop_table")
     abstract fun getAllShops(): Flow<List<Shop>>
 
+    @Query("SELECT * from shop_table WHERE id = :id")
+    abstract fun getShopById(id: Int): Flow<Shop>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertShop(shop: Shop)
 

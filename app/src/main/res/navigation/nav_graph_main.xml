@@ -18,7 +18,7 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_shopFragment_to_createFragment"
-            app:destination="@id/createFragment" />
+            app:destination="@id/shopCreateFragment" />
     </fragment>
     <fragment
         android:id="@+id/storehouseFragment"
@@ -62,21 +62,13 @@
             app:argType="integer" />
     </fragment>
     <fragment
-        android:id="@+id/createFragment"
+        android:id="@+id/shopCreateFragment"
         android:name="com.vladimir_khm.ainsofttestapp.ui.shop.ShopCreateFragment"
         android:label="fragment_create"
         tools:layout="@layout/fragment_shop_create">
         <argument
-            android:name="title"
-            android:defaultValue=" "
-            app:argType="string" />
-        <argument
-            android:name="isNew"
-            android:defaultValue="true"
-            app:argType="boolean" />
-        <argument
             android:name="id"
-            android:defaultValue="0"
+            android:defaultValue="-1"
             app:argType="integer" />
     </fragment>
     <fragment

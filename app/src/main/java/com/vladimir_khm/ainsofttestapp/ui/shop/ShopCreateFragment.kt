@@ -20,7 +20,9 @@ class ShopCreateFragment : Fragment(R.layout.fragment_shop_create) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = activity?.getViewModel() ?: return
+        viewModel = activity?.getViewModel(args.id) {
+            ShopCreateViewModel(activity!!.application, args.id)
+        } ?: return
     }
 
     override fun onResume() {
@@ -38,17 +40,16 @@ class ShopCreateFragment : Fragment(R.layout.fragment_shop_create) {
         viewModel.isButtonEnabled().observe(viewLifecycleOwner, Observer {
             btn_create_shop.isEnabled = it
         })
-
-        val isNew = args.isNew
+        viewModel.currentShopLD.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                et_create_shop.setText(it.name)
+                tv_create_shop.text = getString(R.string.title, it.name)
+            }
+        })
         btn_create_shop.setOnClickListener {
-            viewModel.saveShop(isNew, et_create_shop.text.toString(), args.id)
+            viewModel.saveShop(et_create_shop.text.toString())
             view?.clearFocus()
             activity?.onBackPressed()
-        }
-        if (!isNew) {
-            val title = args.title
-            et_create_shop.setText(title)
-            tv_create_shop.text = getString(R.string.title, title)
         }
     }
 }

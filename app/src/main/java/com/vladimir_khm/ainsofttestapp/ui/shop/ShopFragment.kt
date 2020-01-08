@@ -56,7 +56,7 @@ class ShopFragment : Fragment(R.layout.shop_fragment), Interaction {
 
     override fun onEditClick(item: Shop) {
         val direction = ShopFragmentDirections
-            .actionShopFragmentToCreateFragment(item.name, false, item.id)
+            .actionShopFragmentToCreateFragment(item.id)
         doNavigate(direction)
     }
 

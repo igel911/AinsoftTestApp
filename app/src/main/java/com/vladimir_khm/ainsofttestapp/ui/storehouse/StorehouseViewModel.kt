@@ -19,17 +19,9 @@ class StorehouseViewModel(
     override val kodein by kodein(application)
     private val repository: StorehouseRepository by instance()
     val shopWithStorehouses = repository.getShopWithStorehouses(shopId).asLiveData()
-
-
-    /*fun addStorehouse(name: String) = viewModelScope.launch {
-        repository.insert(Storehouse(name = name, shop_id = shopId))
-    }*/
+    
 
     fun deleteStorehouse(storehouse: Storehouse) = viewModelScope.launch {
         repository.delete(storehouse)
     }
-
-    /*fun updateStorehouse(name: String, id: Int) = viewModelScope.launch {
-        repository.update(Storehouse(id, name, shopId))
-    }*/
 }

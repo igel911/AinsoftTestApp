@@ -13,7 +13,7 @@ import org.kodein.di.generic.instance
 
 class ProductViewModel(
     application: Application,
-    private val storehouseId: Int
+    storehouseId: Int
 ) : AndroidViewModel(application), KodeinAware {
 
     override val kodein by kodein(application)
@@ -21,13 +21,5 @@ class ProductViewModel(
     val storehouseWithProducts = repository.getStorehouseWithProducts(storehouseId).asLiveData()
 
 
-    fun addProduct(name: String) = viewModelScope.launch {
-        repository.insert(Product(name = name, storehouse_id = storehouseId))
-    }
-
     fun deleteProduct(shop: Product) = viewModelScope.launch { repository.delete(shop) }
-
-    fun updateProduct(name: String, id: Int) = viewModelScope.launch {
-        repository.update(Product(id, name, storehouseId))
-    }
 }

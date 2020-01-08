@@ -9,10 +9,10 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 
-class StorehouseCreateViewModel
-    (application: Application,
-     storehouseId: Int,
-     private val shopId: Int
+class StorehouseCreateViewModel(
+    application: Application,
+    storehouseId: Int,
+    private val shopId: Int
 ) : AndroidViewModel(application), KodeinAware {
 
     override val kodein by kodein(application)

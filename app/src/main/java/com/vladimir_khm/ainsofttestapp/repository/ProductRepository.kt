@@ -7,6 +7,8 @@ class ProductRepository(private val appDao: AppDao) {
 
     fun getStorehouseWithProducts(shopId: Int) = appDao.getStorehouseWithProducts(shopId)
 
+    fun getById(id: Int) = appDao.getProductById(id)
+
     suspend fun insert(product: Product) = appDao.insertProduct(product)
 
     suspend fun delete(product: Product) = appDao.deleteProduct(product)

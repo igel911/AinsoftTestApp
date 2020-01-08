@@ -66,6 +66,9 @@ abstract class AppDao {
     @Query("SELECT * from storehouse_table WHERE id = :shopId")
     abstract fun getStorehouseWithProducts(shopId: Int): Flow<StorehouseWithProducts>
 
+    @Query("SELECT * from product_table WHERE id = :id")
+    abstract fun getProductById(id: Int): Flow<Product>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertProduct(product: Product)
 

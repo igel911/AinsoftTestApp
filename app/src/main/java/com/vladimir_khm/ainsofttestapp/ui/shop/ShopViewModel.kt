@@ -14,7 +14,7 @@ class ShopViewModel(application: Application) : AndroidViewModel(application), K
 
     override val kodein by kodein(application)
     private val repository: ShopRepository by instance()
-    val allShops = repository.allShops().asLiveData(viewModelScope.coroutineContext)
+    val allShops = repository.getAll().asLiveData(viewModelScope.coroutineContext)
 
 
     fun deleteShop(shop: Shop) = viewModelScope.launch { repository.delete(shop) }

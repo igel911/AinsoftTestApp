@@ -18,7 +18,7 @@ class ShopCreateViewModel(
     private val repository: ShopRepository by instance()
     private val isButtonEnabled = MutableLiveData<Boolean>()
      val currentShopLD = repository
-        .getShopById(shopId)
+        .getById(shopId)
         .asLiveData(viewModelScope.coroutineContext)
 
     fun isButtonEnabled(): LiveData<Boolean> {

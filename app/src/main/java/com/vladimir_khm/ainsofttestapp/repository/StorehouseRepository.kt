@@ -7,6 +7,8 @@ class StorehouseRepository(private val appDao: AppDao) {
 
     fun getShopWithStorehouses(shopId: Int) = appDao.getShopWithStorehouses(shopId)
 
+    fun getById(id: Int) = appDao.getStorehouseById(id)
+
     suspend fun insert(storehouse: Storehouse) = appDao.insertStorehouse(storehouse)
 
     suspend fun delete(storehouse: Storehouse) = appDao.deleteStorehouse(storehouse)

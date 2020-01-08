@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.vladimir_khm.ainsofttestapp.R
 import com.vladimir_khm.ainsofttestapp.util.getViewModel
@@ -13,14 +14,14 @@ import kotlinx.android.synthetic.main.fragment_storehouse_create.*
 class StorehouseCreateFragment : Fragment(R.layout.fragment_storehouse_create) {
 
     private val args: StorehouseCreateFragmentArgs by navArgs()
-    private lateinit var viewModel: StorehouseViewModel
+    private lateinit var viewModel: StorehouseCreateViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewModel = activity?.getViewModel(args.shopId) {
-            StorehouseViewModel(activity?.application!!, args.shopId)
+            StorehouseCreateViewModel(activity?.application!!, args.id, args.shopId)
         } ?: return
     }
 
@@ -29,29 +30,25 @@ class StorehouseCreateFragment : Fragment(R.layout.fragment_storehouse_create) {
 
         et_create_storehouse.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                btn_create_storehouse.isEnabled = charSequence
-                    .toString()
-                    .trim { it <= ' ' }
-                    .isNotEmpty()
+                viewModel.checkText(charSequence.toString())
             }
 
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             override fun afterTextChanged(editable: Editable) {}
         })
-        val isNew = args.isNew
-        btn_create_storehouse.setOnClickListener {
-            if (isNew) {
-                viewModel.addStorehouse(et_create_storehouse.text.toString())
-            } else {
-                viewModel.updateStorehouse(et_create_storehouse.text.toString(), args.id)
+        viewModel.isButtonEnabled().observe(viewLifecycleOwner, Observer {
+            btn_create_storehouse.isEnabled = it
+        })
+        viewModel.currentStorehouseLD.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                et_create_storehouse.setText(it.name)
+                tv_create_storehouse.text = getString(R.string.title, it.name)
             }
+        })
+        btn_create_storehouse.setOnClickListener {
+            viewModel.saveStorehouse(et_create_storehouse.text.toString())
             view?.clearFocus()
             activity?.onBackPressed()
-        }
-        if (!isNew) {
-            val title = args.title
-            et_create_storehouse.setText(title)
-            tv_create_storehouse.text = getString(R.string.title, title)
         }
     }
 }

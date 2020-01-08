@@ -5,9 +5,9 @@ import com.vladimir_khm.ainsofttestapp.model.Shop
 
 class ShopRepository(private val appDao: AppDao) {
 
-    fun allShops() = appDao.getAllShops()
+    fun getAll() = appDao.getAllShops()
 
-    fun getShopById(id: Int) = appDao.getShopById(id)
+    fun getById(id: Int) = appDao.getShopById(id)
 
     suspend fun insert(shop: Shop) = appDao.insertShop(shop)
 

@@ -1,25 +1,24 @@
 package com.vladimir_khm.ainsofttestapp.ui.product
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.vladimir_khm.ainsofttestapp.model.Product
+import com.vladimir_khm.ainsofttestapp.model.StorehouseWithProducts
 import com.vladimir_khm.ainsofttestapp.repository.ProductRepository
 import kotlinx.coroutines.launch
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.kodein
-import org.kodein.di.generic.instance
 
-class ProductViewModel(
-    application: Application,
-    storehouseId: Int
-) : AndroidViewModel(application), KodeinAware {
+class ProductViewModel(val repository: ProductRepository) : ViewModel() {
 
-    override val kodein by kodein(application)
-    private val repository: ProductRepository by instance()
-    val storehouseWithProducts = repository.getStorehouseWithProducts(storehouseId).asLiveData()
+    lateinit var storehouseWithProducts: LiveData<StorehouseWithProducts>
 
+
+    fun init(storehouseId: Int) {
+        storehouseWithProducts = repository
+            .getStorehouseWithProducts(storehouseId)
+            .asLiveData(viewModelScope.coroutineContext)
+    }
 
     fun deleteProduct(shop: Product) = viewModelScope.launch { repository.delete(shop) }
 }

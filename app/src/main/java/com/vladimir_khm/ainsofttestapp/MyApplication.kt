@@ -12,12 +12,15 @@ import com.vladimir_khm.ainsofttestapp.database.SeedDatabaseWorker
 import com.vladimir_khm.ainsofttestapp.repository.ProductRepository
 import com.vladimir_khm.ainsofttestapp.repository.ShopRepository
 import com.vladimir_khm.ainsofttestapp.repository.StorehouseRepository
+import com.vladimir_khm.ainsofttestapp.ui.product.ProductCreateViewModel
+import com.vladimir_khm.ainsofttestapp.ui.product.ProductViewModel
+import com.vladimir_khm.ainsofttestapp.ui.shop.ShopCreateViewModel
+import com.vladimir_khm.ainsofttestapp.ui.shop.ShopViewModel
+import com.vladimir_khm.ainsofttestapp.ui.storehouse.StorehouseCreateViewModel
+import com.vladimir_khm.ainsofttestapp.ui.storehouse.StorehouseViewModel
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.singleton
-import org.kodein.di.generic.with
+import org.kodein.di.generic.*
 
 class MyApplication : Application(), KodeinAware {
 
@@ -41,8 +44,14 @@ class MyApplication : Application(), KodeinAware {
                 .build()
         }
         bind<AppDao>() with singleton { instance<AppDatabase>().appDao() }
-        bind<ShopRepository>() with singleton { ShopRepository(instance()) }
-        bind<StorehouseRepository>() with singleton { StorehouseRepository(instance()) }
-        bind<ProductRepository>() with singleton { ProductRepository(instance()) }
+        bind() from singleton { ShopRepository(instance()) }
+        bind() from singleton { StorehouseRepository(instance()) }
+        bind() from singleton { ProductRepository(instance()) }
+        bind() from singleton { ShopViewModel(instance()) }
+        bind() from singleton { ShopCreateViewModel(instance()) }
+        bind() from singleton { StorehouseViewModel(instance()) }
+        bind() from singleton { StorehouseCreateViewModel(instance()) }
+        bind() from singleton { ProductViewModel(instance()) }
+        bind() from singleton { ProductCreateViewModel(instance()) }
     }
 }

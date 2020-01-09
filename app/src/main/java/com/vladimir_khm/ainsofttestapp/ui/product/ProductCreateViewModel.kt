@@ -1,26 +1,22 @@
 package com.vladimir_khm.ainsofttestapp.ui.product
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.vladimir_khm.ainsofttestapp.model.Product
 import com.vladimir_khm.ainsofttestapp.repository.ProductRepository
 import kotlinx.coroutines.launch
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.kodein
-import org.kodein.di.generic.instance
 
-class ProductCreateViewModel(
-    application: Application,
-    productId: Int,
-    private val storehouseId: Int
-) : AndroidViewModel(application), KodeinAware {
+class ProductCreateViewModel(private val repository: ProductRepository) : ViewModel() {
 
-    override val kodein by kodein(application)
-    private val repository: ProductRepository by instance()
     private val isButtonEnabled = MutableLiveData<Boolean>()
-    val currentProductLD = repository
-        .getById(productId)
-        .asLiveData(viewModelScope.coroutineContext)
+    lateinit var currentProductLD: LiveData<Product>
+    private var storehouseId = 0
+
+    fun init(productId: Int, storehouseId: Int) {
+        this.storehouseId = storehouseId
+        currentProductLD = repository
+            .getById(productId)
+            .asLiveData(viewModelScope.coroutineContext)
+    }
 
     fun isButtonEnabled(): LiveData<Boolean> {
         return isButtonEnabled
@@ -31,11 +27,11 @@ class ProductCreateViewModel(
     }
 
     fun saveProduct(name: String) {
-        val currentStorehouse = currentProductLD.value
-        if (currentStorehouse == null) {
+        val currentProduct = currentProductLD.value
+        if (currentProduct == null) {
             addProduct(name)
         } else {
-            updateProduct(name, currentStorehouse.id)
+            updateProduct(name, currentProduct.id)
         }
     }
 

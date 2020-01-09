@@ -9,23 +9,23 @@ import androidx.navigation.fragment.navArgs
 import com.vladimir_khm.ainsofttestapp.R
 import com.vladimir_khm.ainsofttestapp.model.Storehouse
 import com.vladimir_khm.ainsofttestapp.util.ItemDecorator
-import com.vladimir_khm.ainsofttestapp.util.getViewModel
 import kotlinx.android.synthetic.main.storehouse_fragment.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class StorehouseFragment : Fragment(R.layout.storehouse_fragment), Interaction {
+class StorehouseFragment : Fragment(R.layout.storehouse_fragment), Interaction, KodeinAware {
 
     private lateinit var storehouseAdapter: StorehouseRvAdapter
     private val args: StorehouseFragmentArgs by navArgs()
-    private lateinit var viewModel: StorehouseViewModel
+    override val kodein by kodein()
+    private val viewModel: StorehouseViewModel by instance()
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initRecyclerView()
-
-        viewModel = activity?.getViewModel(args.shopId) {
-            StorehouseViewModel(activity?.application!!, args.shopId)
-        } ?: return
+        viewModel.init(args.shopId)
 
         viewModel.shopWithStorehouses.observe(viewLifecycleOwner, Observer {
             storehouseAdapter.submitList(it.storehouses)
@@ -64,8 +64,6 @@ class StorehouseFragment : Fragment(R.layout.storehouse_fragment), Interaction {
         val direction = StorehouseFragmentDirections
             .actionStorehouseFragmentToStorehouseCreateFragment(
                 args.shopId,
-                item.name,
-                false,
                 item.id
             )
         doNavigate(direction)

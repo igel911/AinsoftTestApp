@@ -1,26 +1,22 @@
 package com.vladimir_khm.ainsofttestapp.ui.storehouse
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.vladimir_khm.ainsofttestapp.model.Storehouse
 import com.vladimir_khm.ainsofttestapp.repository.StorehouseRepository
 import kotlinx.coroutines.launch
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.kodein
-import org.kodein.di.generic.instance
 
-class StorehouseCreateViewModel(
-    application: Application,
-    storehouseId: Int,
-    private val shopId: Int
-) : AndroidViewModel(application), KodeinAware {
+class StorehouseCreateViewModel(private val repository: StorehouseRepository) : ViewModel() {
 
-    override val kodein by kodein(application)
-    private val repository: StorehouseRepository by instance()
     private val isButtonEnabled = MutableLiveData<Boolean>()
-    val currentStorehouseLD = repository
-        .getById(storehouseId)
-        .asLiveData(viewModelScope.coroutineContext)
+    lateinit var currentStorehouseLD: LiveData<Storehouse>
+    private var shopId = 0
+
+    fun init(storehouseId: Int, shopId: Int) {
+        this.shopId = shopId
+        currentStorehouseLD = repository
+            .getById(storehouseId)
+            .asLiveData(viewModelScope.coroutineContext)
+    }
 
     fun isButtonEnabled(): LiveData<Boolean> {
         return isButtonEnabled

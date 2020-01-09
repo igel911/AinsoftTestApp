@@ -1,25 +1,20 @@
 package com.vladimir_khm.ainsofttestapp.ui.shop
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.vladimir_khm.ainsofttestapp.model.Shop
 import com.vladimir_khm.ainsofttestapp.repository.ShopRepository
 import kotlinx.coroutines.launch
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.kodein
-import org.kodein.di.generic.instance
 
-class ShopCreateViewModel(
-    application: Application,
-    shopId: Int
-    ) : AndroidViewModel(application), KodeinAware {
+class ShopCreateViewModel(val repository: ShopRepository) : ViewModel() {
 
-    override val kodein by kodein(application)
-    private val repository: ShopRepository by instance()
     private val isButtonEnabled = MutableLiveData<Boolean>()
-     val currentShopLD = repository
-        .getById(shopId)
-        .asLiveData(viewModelScope.coroutineContext)
+    lateinit var currentShopLD: LiveData<Shop>
+
+    fun init(shopId: Int) {
+        currentShopLD = repository
+            .getById(shopId)
+            .asLiveData(viewModelScope.coroutineContext)
+    }
 
     fun isButtonEnabled(): LiveData<Boolean> {
         return isButtonEnabled

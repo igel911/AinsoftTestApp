@@ -8,20 +8,22 @@ import androidx.navigation.findNavController
 import com.vladimir_khm.ainsofttestapp.R
 import com.vladimir_khm.ainsofttestapp.model.Shop
 import com.vladimir_khm.ainsofttestapp.util.ItemDecorator
-import com.vladimir_khm.ainsofttestapp.util.getViewModel
 import kotlinx.android.synthetic.main.shop_fragment.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class ShopFragment : Fragment(R.layout.shop_fragment), Interaction {
+class ShopFragment : Fragment(R.layout.shop_fragment), Interaction, KodeinAware {
 
+    override val kodein by kodein()
     private lateinit var shopAdapter: ShopRvAdapter
-    private lateinit var viewModel: ShopViewModel
+    private val viewModel: ShopViewModel by instance()
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initRecyclerView()
 
-        viewModel = activity?.getViewModel() ?: return
         viewModel.allShops.observe(viewLifecycleOwner, Observer {
             shopAdapter.submitList(it)
         })

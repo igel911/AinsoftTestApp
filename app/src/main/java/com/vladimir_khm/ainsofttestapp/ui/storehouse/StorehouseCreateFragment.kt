@@ -8,21 +8,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.vladimir_khm.ainsofttestapp.R
-import com.vladimir_khm.ainsofttestapp.util.getViewModel
 import kotlinx.android.synthetic.main.fragment_storehouse_create.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class StorehouseCreateFragment : Fragment(R.layout.fragment_storehouse_create) {
+class StorehouseCreateFragment : Fragment(R.layout.fragment_storehouse_create), KodeinAware {
 
     private val args: StorehouseCreateFragmentArgs by navArgs()
-    private lateinit var viewModel: StorehouseCreateViewModel
+    override val kodein by kodein()
+    private val viewModel: StorehouseCreateViewModel by instance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = activity?.getViewModel(args.shopId) {
-            StorehouseCreateViewModel(activity?.application!!, args.id, args.shopId)
-        } ?: return
+        viewModel.init(args.id, args.shopId)
     }
 
     override fun onResume() {

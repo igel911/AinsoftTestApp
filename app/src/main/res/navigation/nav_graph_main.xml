@@ -80,16 +80,8 @@
             android:name="shopId"
             app:argType="integer" />
         <argument
-            android:name="title"
-            android:defaultValue=" "
-            app:argType="string" />
-        <argument
-            android:name="isNew"
-            android:defaultValue="true"
-            app:argType="boolean" />
-        <argument
             android:name="id"
-            android:defaultValue="0"
+            android:defaultValue="-1"
             app:argType="integer" />
     </fragment>
     <fragment
@@ -101,16 +93,8 @@
             android:name="storehouseId"
             app:argType="integer" />
         <argument
-            android:name="title"
-            android:defaultValue=" "
-            app:argType="string" />
-        <argument
-            android:name="isNew"
-            android:defaultValue="true"
-            app:argType="boolean" />
-        <argument
             android:name="id"
-            android:defaultValue="0"
+            android:defaultValue="-1"
             app:argType="integer" />
     </fragment>
 </navigation>

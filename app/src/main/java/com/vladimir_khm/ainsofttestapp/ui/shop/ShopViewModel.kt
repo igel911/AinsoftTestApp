@@ -1,19 +1,15 @@
 package com.vladimir_khm.ainsofttestapp.ui.shop
 
-import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.vladimir_khm.ainsofttestapp.model.Shop
 import com.vladimir_khm.ainsofttestapp.repository.ShopRepository
 import kotlinx.coroutines.launch
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.kodein
-import org.kodein.di.generic.instance
 
 
-class ShopViewModel(application: Application) : AndroidViewModel(application), KodeinAware {
+class ShopViewModel(val repository: ShopRepository) : ViewModel() {
 
-    override val kodein by kodein(application)
-    private val repository: ShopRepository by instance()
     val allShops = repository.getAll().asLiveData(viewModelScope.coroutineContext)
 
 

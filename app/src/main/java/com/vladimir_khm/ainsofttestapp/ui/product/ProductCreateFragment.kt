@@ -8,21 +8,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.vladimir_khm.ainsofttestapp.R
-import com.vladimir_khm.ainsofttestapp.util.getViewModel
 import kotlinx.android.synthetic.main.fragment_product_create.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class ProductCreateFragment : Fragment(R.layout.fragment_product_create) {
+class ProductCreateFragment : Fragment(R.layout.fragment_product_create), KodeinAware {
 
     private val args: ProductCreateFragmentArgs by navArgs()
-    private lateinit var viewModel: ProductCreateViewModel
+    override val kodein by kodein()
+    private val viewModel: ProductCreateViewModel by instance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = activity?.getViewModel(args.storehouseId) {
-            ProductCreateViewModel(activity?.application!!, args.id, args.storehouseId)
-        } ?: return
+        viewModel.init(args.id, args.storehouseId)
     }
 
     override fun onResume() {
